@@ -1,11 +1,16 @@
 package lexer;
 
 import java.io.IOException;
+import java.util.Hashtable;
 
 public class Lexer {
     private char peek = ' ';
+    private Hashtable words = new Hashtable();
+    void reserve(Word t) {
+        words.put(t.lexeme, t);
+    }
     public Lexer() {
-
+        reserve(new Word(Tag.FOR, "for"));
     }
     public Token scan() throws IOException {
 
@@ -31,10 +36,13 @@ public class Lexer {
                 peek = (char)System.in.read();
             } while (Character.isLetterOrDigit(peek));
             String s = b.toString();
+            Word w = (Word)words.get(s);
             if (s.equals("for")) System.out.println("Peek: " + peek);
-            if (s.equals("for"))
-                return new Word(Tag.FOR, s);
-            return new Word(Tag.ID, s);
+            if (w != null)
+                return w;
+            w = new Word(Tag.ID, s);
+            words.put(s, w);
+            return w;
         }
 
         Token t = new Token(peek);
