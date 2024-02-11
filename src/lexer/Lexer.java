@@ -26,6 +26,13 @@ public class Lexer {
                         peek = (char) System.in.read();
                     } while (peek != '\r' && peek != '\n');
                     peek = (char) System.in.read();
+                } else if (peek == '*') {
+                    char prev;
+                    do {
+                        prev = peek;
+                        peek = (char) System.in.read();
+                    } while (!(prev == '*' && peek == '/'));
+                    peek = (char) System.in.read();
                 } else {
                     return new Token('/');
                 }
