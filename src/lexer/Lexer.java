@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 public class Lexer {
+    private char prev = ' ';
     private char peek = ' ';
     private Hashtable words = new Hashtable();
     void reserve(Word t) {
@@ -15,25 +16,24 @@ public class Lexer {
     public Token scan() throws IOException {
 
         while (true) {
-            for (;; peek = (char) System.in.read())
+            for (;; read())
                 if (!(peek == ' ' || peek == '\t' || peek == '\n' || peek == '\r'))
                     break;
 
             if (peek == '/') {
-                peek = (char) System.in.read();
+                read();
                 if (peek == '/') {
                     do {
-                        peek = (char) System.in.read();
+                        read();
                     } while (peek != '\r' && peek != '\n');
-                    peek = (char) System.in.read();
+                    read();
                 } else if (peek == '*') {
-                    char prev = (char) System.in.read();
-                    peek = (char) System.in.read();
+                    read();
+                    read();
                     while (!(prev == '*' && peek == '/')) {
-                        prev = peek;
-                        peek = (char) System.in.read();
+                        read();
                     }
-                    peek = (char) System.in.read();
+                    read();
                 } else {
                     return new Token('/');
                 }
@@ -44,7 +44,7 @@ public class Lexer {
             int v = 0;
             do {
                 v = 10 * v + Character.digit(peek, 10);
-                peek = (char)System.in.read();
+                read();
             } while (Character.isDigit(peek));
             return new Num(v);
         }
@@ -53,7 +53,7 @@ public class Lexer {
             StringBuffer b = new StringBuffer();
             do {
                 b.append(peek);
-                peek = (char)System.in.read();
+                read();
             } while (Character.isLetterOrDigit(peek));
             String s = b.toString();
             Word w = (Word)words.get(s);
@@ -67,5 +67,10 @@ public class Lexer {
         Token t = new Token(peek);
         peek = ' ';
         return t;
+    }
+
+    private void read() throws IOException {
+        prev = peek;
+        peek = (char) System.in.read();
     }
 }
