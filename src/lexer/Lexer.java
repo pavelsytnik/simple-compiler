@@ -21,6 +21,14 @@ public class Lexer {
 
     public Lexer() {
         reserve(new Word(Tag.FOR, "for"));
+        reserve(new Word(Tag.TRUE, "true"));
+        reserve(new Word(Tag.FALSE, "false"));
+        reserve(new Word(Tag.LESS, "<"));
+        reserve(new Word(Tag.LESS_EQUALS, "<="));
+        reserve(new Word(Tag.EQUALS, "=="));
+        reserve(new Word(Tag.NOT_EQUALS, "!="));
+        reserve(new Word(Tag.BIGGER_EQUALS, ">="));
+        reserve(new Word(Tag.BIGGER, ">"));
     }
 
     public Token scan() throws IOException {
@@ -81,6 +89,21 @@ public class Lexer {
             w = new Word(Tag.ID, s);
             words.put(s, w);
             return w;
+        }
+
+        if ("<>!=".contains(String.valueOf(peek))) {
+            read();
+            Word w = (Word) words.get(prev + "" + peek);
+            if (w != null)
+            {
+                read();
+                return w;
+            }
+            w = (Word) words.get(prev + "");
+            if (w != null) {
+                return w;
+            }
+            return new Token(prev);
         }
 
         Token t = new Token(peek);
