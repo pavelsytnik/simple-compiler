@@ -14,9 +14,23 @@ public class Lexer {
     }
     public Token scan() throws IOException {
 
-        for (;; peek = (char)System.in.read())
-            if (!(peek == ' ' || peek == '\t' || peek == '\n' || peek == '\r'))
-                break;
+        while (true) {
+            for (;; peek = (char) System.in.read())
+                if (!(peek == ' ' || peek == '\t' || peek == '\n' || peek == '\r'))
+                    break;
+
+            if (peek == '/') {
+                peek = (char) System.in.read();
+                if (peek == '/') {
+                    do {
+                        peek = (char) System.in.read();
+                    } while (peek != '\r' && peek != '\n');
+                    peek = (char) System.in.read();
+                } else {
+                    return new Token('/');
+                }
+            } else break;
+        }
 
         if (Character.isDigit(peek)) {
             int v = 0;
