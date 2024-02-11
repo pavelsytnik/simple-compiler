@@ -7,7 +7,20 @@ public class Main {
         Lexer lexer = new Lexer();
         for (;;) {
             Token t = lexer.scan();
-            System.out.println(t.tag);
+            switch (t.tag) {
+                case Tag.NUM:
+                    System.out.println("NUM -> " + ((Num)t).value);
+                    break;
+                case Tag.ID:
+                    System.out.println("ID -> " + ((Word)t).lexeme);
+                    break;
+                case Tag.FOR:
+                    System.out.println("FOR");
+                    break;
+                default:
+                    System.out.println((char)t.tag);
+                    break;
+            }
         }
     }
 }

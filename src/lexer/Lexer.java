@@ -18,8 +18,6 @@ public class Lexer {
             if (!(peek == ' ' || peek == '\t' || peek == '\n' || peek == '\r'))
                 break;
 
-        System.out.println("Peek at start: " + peek);
-
         if (Character.isDigit(peek)) {
             int v = 0;
             do {
@@ -37,7 +35,6 @@ public class Lexer {
             } while (Character.isLetterOrDigit(peek));
             String s = b.toString();
             Word w = (Word)words.get(s);
-            if (s.equals("for")) System.out.println("Peek: " + peek);
             if (w != null)
                 return w;
             w = new Word(Tag.ID, s);
