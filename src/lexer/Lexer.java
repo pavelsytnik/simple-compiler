@@ -27,11 +27,12 @@ public class Lexer {
                     } while (peek != '\r' && peek != '\n');
                     peek = (char) System.in.read();
                 } else if (peek == '*') {
-                    char prev;
-                    do {
+                    char prev = (char) System.in.read();
+                    peek = (char) System.in.read();
+                    while (!(prev == '*' && peek == '/')) {
                         prev = peek;
                         peek = (char) System.in.read();
-                    } while (!(prev == '*' && peek == '/'));
+                    }
                     peek = (char) System.in.read();
                 } else {
                     return new Token('/');
