@@ -17,6 +17,12 @@ public class Main {
                 case Tag.FOR:
                     System.out.println("FOR");
                     break;
+                case Tag.TRUE:
+                    System.out.println("TRUE");
+                    break;
+                case Tag.FALSE:
+                    System.out.println("FALSE");
+                    break;
                 case Tag.LESS:
                     System.out.println("OP: <");
                     break;
