@@ -62,14 +62,30 @@ public class Lexer {
             }
         }
 
-        if (Character.isDigit(peek)) {
+        if (Character.isDigit(peek) || peek == '.') {
+            boolean pointOccurred = false;
             int v = 0;
+            int afterPointCount = 0;
 
             do {
+                if (peek == '.') {
+                    boolean prevIsDigit = Character.isDigit(prev);
+                    pointOccurred = true;
+                    read();
+                    if (!(prevIsDigit || Character.isDigit(peek))) {
+                        return new Token('.');
+                    }
+                    continue;
+                }
+                if (pointOccurred) {
+                    afterPointCount++;
+                }
                 v = 10 * v + Character.digit(peek, 10);
                 read();
-            } while (Character.isDigit(peek));
+            } while (Character.isDigit(peek) || (!pointOccurred && peek == '.'));
 
+            if (pointOccurred)
+                return new Real((double)v / Math.pow(10, afterPointCount));
             return new Num(v);
         }
 

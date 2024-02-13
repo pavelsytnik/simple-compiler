@@ -41,6 +41,9 @@ public class Main {
                 case Tag.BIGGER:
                     System.out.println("OP: >");
                     break;
+                case Tag.REAL:
+                    System.out.println("REAL: " + ((Real)t).value);
+                    break;
                 default:
                     System.out.println((char)t.tag);
                     break;

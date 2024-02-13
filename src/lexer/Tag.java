@@ -12,4 +12,5 @@ public class Tag {
     public static final int NOT_EQUALS = 264;
     public static final int BIGGER_EQUALS = 265;
     public static final int BIGGER = 266;
+    public static final int REAL = 267;
 }
