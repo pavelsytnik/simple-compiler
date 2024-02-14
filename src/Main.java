@@ -1,8 +1,8 @@
 import java.io.IOException;
 
-public class Postfix {
+public class Main {
     public static void main(String[] args) throws IOException {
-        Parser parser = new Parser();
+        InfixToPostfixParser parser = new InfixToPostfixParser();
         parser.expr(); System.out.write('\n');
     }
 }

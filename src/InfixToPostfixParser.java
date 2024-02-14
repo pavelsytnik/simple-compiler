@@ -1,10 +1,10 @@
 import java.io.*;
 
-public class Parser {
+public class InfixToPostfixParser {
 
     private static int lookahead;
 
-    public Parser() throws IOException {
+    public InfixToPostfixParser() throws IOException {
         lookahead = System.in.read();
     }
 
