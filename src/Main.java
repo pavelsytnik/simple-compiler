@@ -15,5 +15,10 @@ public class Main {
         TaskB taskB = new TaskB();
         taskB.s();
         System.out.write('\n');
+
+        System.out.print("task_c: ");
+        TaskC taskC = new TaskC();
+        taskC.s();
+        System.out.write('\n');
     }
 }
