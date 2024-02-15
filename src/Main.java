@@ -8,5 +8,9 @@ public class Main {
         TaskA taskA = new TaskA();
         taskA.s();
         System.out.write('\n');
+
+        TaskB taskB = new TaskB();
+        taskB.s();
+        System.out.write('\n');
     }
 }
